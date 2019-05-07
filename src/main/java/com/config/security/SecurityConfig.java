@@ -1,0 +1,53 @@
+package com.config.security;
+
+import com.config.handler.FailureAuthenticationHandler;
+import com.config.handler.SuccessAuthenticationHandler;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.ComponentScan;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
+import org.springframework.security.config.annotation.web.builders.HttpSecurity;
+import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+
+@Configuration
+@EnableWebSecurity
+@ComponentScan("com")
+public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private SuccessAuthenticationHandler successAuthenticationHandler;
+    @Autowired
+    private FailureAuthenticationHandler failureAuthenticationHandler;
+
+    @Override
+    public void configure(HttpSecurity httpSecurity) throws Exception {
+        httpSecurity.authorizeRequests()
+                .anyRequest().authenticated()
+                .antMatchers("/resources/**", "/","/login").permitAll()
+                .antMatchers("/user").hasRole("USER")
+                .antMatchers("/admin/*").hasRole("ADMIN")
+                .anyRequest().authenticated()
+                .and()
+                .formLogin().permitAll()
+                    .successHandler(successAuthenticationHandler)
+                    .failureHandler(failureAuthenticationHandler)
+                .and()
+                .logout().permitAll();
+    }
+
+    @Override
+    public void configure(AuthenticationManagerBuilder auth) throws Exception {
+        auth.inMemoryAuthentication()
+                .withUser("user").password("{noop}user").roles("USER")
+                .and()
+                .withUser("admin").password("{noop}admin").roles("USER","ADMIN");
+
+
+    }
+
+//    @Bean
+//    public BCryptPasswordEncoder passwordEncoder() {
+//        return new BCryptPasswordEncoder();
+//    }
+}
