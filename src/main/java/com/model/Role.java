@@ -13,11 +13,11 @@ public class Role implements GrantedAuthority {
     @Column(name = "id")
     private Long id;
 
-    @Column(name = "name", length = 20, nullable = false)
+    @Column(name = "name", unique = true, nullable = false)
     private String name;
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = User.class)
-    @JoinTable(name = "permissions",
+    @JoinTable(name = "JOIN_USER_ROLE",
             joinColumns = {@JoinColumn(name = "role_id")},
             inverseJoinColumns = {@JoinColumn(name = "user_id")})
     private List<User> users;
@@ -56,11 +56,11 @@ public class Role implements GrantedAuthority {
     @Override
     public String toString() {
         if (name.contains("ADMIN") && name.contains("USER")) {
-            return "admin, user";
+            return "ADMIN,USER";
         } else if (name.contains("ADMIN")) {
-            return "admin";
+            return "ADMIN";
         }
-        return "user";
+        return "USER";
     }
 
     @Override

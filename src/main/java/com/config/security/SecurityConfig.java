@@ -2,19 +2,25 @@ package com.config.security;
 
 import com.config.handler.FailureAuthenticationHandler;
 import com.config.handler.SuccessAuthenticationHandler;
+import com.service.detailsService.UserDetailsServiceImpl;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
+import org.springframework.security.crypto.password.NoOpPasswordEncoder;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 @EnableWebSecurity
 @ComponentScan("com")
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
+    @Autowired
+    private UserDetailsServiceImpl userDetailsService;
     @Autowired
     private SuccessAuthenticationHandler successAuthenticationHandler;
     @Autowired
@@ -38,16 +44,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
-        auth.inMemoryAuthentication()
-                .withUser("user").password("{noop}user").roles("USER")
-                .and()
-                .withUser("admin").password("{noop}admin").roles("USER","ADMIN");
-
-
+        auth.userDetailsService(userDetailsService).passwordEncoder(getNoOpPasswordEncoder());
     }
 
-//    @Bean
-//    public BCryptPasswordEncoder passwordEncoder() {
-//        return new BCryptPasswordEncoder();
-//    }
+    public PasswordEncoder getNoOpPasswordEncoder(){
+        return NoOpPasswordEncoder.getInstance();
+    }
 }

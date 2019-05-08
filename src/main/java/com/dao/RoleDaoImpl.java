@@ -20,6 +20,11 @@ public class RoleDaoImpl implements RoleDao {
     }
 
     @Override
+    public Role getRoleByID(Long id) {
+        return entityManager.find(Role.class, id);
+    }
+
+    @Override
     public void addRole(Role role) {
         entityManager.persist(role);
     }

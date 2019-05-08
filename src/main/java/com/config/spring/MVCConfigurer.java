@@ -17,7 +17,7 @@ import org.springframework.web.servlet.view.JstlView;
 
 @Configuration
 @EnableWebMvc
-@ComponentScan("com.controller")
+@ComponentScan("com")
 public class MVCConfigurer implements WebMvcConfigurer {
 
     @Bean
@@ -27,17 +27,6 @@ public class MVCConfigurer implements WebMvcConfigurer {
         internalResourceViewResolver.setPrefix("/WEB-INF/view/");
         internalResourceViewResolver.setSuffix(".jsp");
         return internalResourceViewResolver;
-    }
-
-
-    @Bean(initMethod = "init")
-    public UserContainer initUserStorage(){
-        return new UserContainer();
-    }
-
-    @Bean(initMethod = "init")
-    public DatabaseInitializer initDatabaseStorage(UserService userService, RoleService roleService){
-        return new DatabaseInitializer(userService, roleService);
     }
 
 }

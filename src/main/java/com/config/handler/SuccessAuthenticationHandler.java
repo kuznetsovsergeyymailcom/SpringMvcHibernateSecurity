@@ -42,12 +42,12 @@ public class SuccessAuthenticationHandler implements AuthenticationSuccessHandle
         for(GrantedAuthority authority : authorities){
             System.out.println(authority.getAuthority());
         }
-        System.out.println(authorities.contains(new SimpleGrantedAuthority("ROLE_USER")));
+        System.out.println(authorities.contains("ADMIN"));
 
 
-        if (authorities.contains(new SimpleGrantedAuthority("ROLE_ADMIN"))){
-            return "/show";
-        } else if (authorities.contains(new SimpleGrantedAuthority("ROLE_USER"))) {
+        if (authorities.contains("ADMIN")){
+            return "/admin/show";
+        } else if (authorities.contains("USER")) {
             return "/user";
         } else {
             return "/error";
