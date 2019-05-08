@@ -35,31 +35,23 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         filter.setForceEncoding(true);
         httpSecurity.csrf().disable().addFilterBefore(filter, CsrfFilter.class);
         httpSecurity.authorizeRequests()
-                .anyRequest().authenticated()
-//                .antMatchers("/resources/**", "/","/login","/loginProcessingUrl").permitAll()
-                .antMatchers("/user").hasRole("USER")
-                .antMatchers("/admin/*").hasRole("ADMIN")
-                .anyRequest().authenticated()
+                .antMatchers("/user/**").hasAnyAuthority("USER")
+                .antMatchers("/admin/**").hasAnyAuthority("ADMIN")
                 .and()
                 .formLogin()
                 .loginPage("/login")
-//                .loginProcessingUrl("/loginProcessingUrl")
                 .usernameParameter("username")
-                .passwordParameter("password").permitAll()
+                .passwordParameter("password")
                     .successHandler(successAuthenticationHandler)
-                    .failureHandler(failureAuthenticationHandler).permitAll()
+                    .failureHandler(failureAuthenticationHandler)
                 .and()
-                .logout().permitAll();
+                .logout().permitAll()
+                .and().exceptionHandling().accessDeniedPage("/error");;
     }
 
     @Override
     public void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.userDetailsService(userDetailsService).passwordEncoder(getNoOpPasswordEncoder());
-//        auth.inMemoryAuthentication()
-//                .withUser("user").password("{noop}user").roles("USER")
-//                .and()
-//                .withUser("admin").password("{noop}admin").roles("USER","ADMIN");
-
     }
 
     public PasswordEncoder getNoOpPasswordEncoder(){

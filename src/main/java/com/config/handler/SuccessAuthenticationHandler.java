@@ -1,5 +1,6 @@
 package com.config.handler;
 
+import com.model.Role;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
@@ -42,12 +43,12 @@ public class SuccessAuthenticationHandler implements AuthenticationSuccessHandle
         for(GrantedAuthority authority : authorities){
             System.out.println(authority.getAuthority());
         }
-        System.out.println(authorities.contains("ADMIN"));
+        System.out.println(authorities.contains(new Role("ADMIN")));
 
 
-        if (authorities.contains("ADMIN")){
+        if (authorities.contains(new Role("ADMIN"))){
             return "/admin/show";
-        } else if (authorities.contains("USER")) {
+        } else if (authorities.contains(new Role("USER"))) {
             return "/user";
         } else {
             return "/error";

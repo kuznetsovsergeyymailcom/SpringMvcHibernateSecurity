@@ -5,6 +5,6 @@
     <title>Error page</title>
 </head>
 <body>
-<h2>Error has been detected</h2>
+<h2>Access denied</h2>
 </body>
 </html>

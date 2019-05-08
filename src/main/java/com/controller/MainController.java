@@ -47,12 +47,12 @@ public class MainController {
     }
 
     @PostMapping(value = "/admin/add")
-    public String addUserMethod(@RequestParam("login") String login,
+    public String addUserMethod(@RequestParam("username") String username,
                                 @RequestParam("password") String password,
                                 @RequestParam("roles") String role) throws IOException {
         Set<Role> roles = getRoles(role);
 
-        userService.addUser(new User(login, password, roles));
+        userService.addUser(new User(username, password, roles));
         return "redirect:/admin/show";
     }
 
@@ -80,13 +80,13 @@ public class MainController {
 
     @PostMapping(value = "/admin/update")
     public void updateMethod(@RequestParam("id") String id,
-                             @RequestParam("login") String login,
+                             @RequestParam("username") String username,
                              @RequestParam("password") String password,
                              @RequestParam("roles") String role,
                              HttpServletResponse resp) throws IOException {
         Set<Role> roles = getRoles(role);
         Long user_id = Long.parseLong(id);
-        userService.update(new User(user_id, login, password, roles));
+        userService.update(new User(user_id, username, password, roles));
         resp.sendRedirect("/admin/show");
     }
 
@@ -126,11 +126,11 @@ public class MainController {
         Role role_user = roleService.getRoleById(2L);
 
         switch (role) {
-            case "ADMIN":
+            case "admin":
                 roles.add(role_admin);
                 break;
-            case "ADMIN,USER":
-            case "USER,ADMIN":
+            case "admin,user":
+            case "user,admin":
                 roles.add(role_admin);
                 roles.add(role_user);
                 break;
