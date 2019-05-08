@@ -24,6 +24,6 @@ public class FailureAuthenticationHandler extends SimpleUrlAuthenticationFailure
     }
 
     private String determineTargetUrl() {
-        return "/login";
+        return "/error";
     }
 }

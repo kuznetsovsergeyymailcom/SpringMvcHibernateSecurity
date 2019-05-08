@@ -25,7 +25,7 @@ public class DatabaseInitializer {
         roleService.addRole(userRole);
 
         User admin = new User();
-        admin.setLogin("admin");
+        admin.setUsername("admin");
         admin.setPassword("admin");
         Set<Role> roles = new HashSet<>();
         roles.add(adminRole);
@@ -35,7 +35,7 @@ public class DatabaseInitializer {
         userService.addUser(admin);
 
         User user = new User();
-        user.setLogin("user");
+        user.setUsername("user");
         user.setPassword("user");
         Set<Role> roles2 = new HashSet<>();
         roles2.add(userRole);

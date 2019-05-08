@@ -3,7 +3,7 @@
 <%@ page isELIgnored="false" %>
 <html>
 <head>
-    <title>login page</title>
+    <title>username page</title>
     <script type="text/javascript" src="http://code.jquery.com/jquery-latest.js"></script>
     <script type="text/javascript">
         $(document).ready(function () {
@@ -13,7 +13,7 @@
     </script>
 </head>
 <body>
-<form method="post" action="/admin/show">
+<form method="post" action="/login">
     <table>
         <thead border="2">
         <tr>
@@ -23,7 +23,7 @@
         </thead>
         <tbody>
         <tr>
-            <td><input type="text" name="login" value="${user.login}"></td>
+            <td><input type="text" name="username" value="${user.username}"></td>
             <td><input type="password" name="password" value="${user.password}"></td>
         </tr>
         </tbody>

@@ -14,8 +14,8 @@ public class User implements UserDetails {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", updatable = false, nullable = false)
     private Long id;
-    @Column(name = "login", unique = true, updatable = false, nullable = false)
-    private String login;
+    @Column(name = "username", unique = true, updatable = false, nullable = false)
+    private String username;
     private String password;
 
     @ManyToMany(fetch = FetchType.EAGER, targetEntity = Role.class)
@@ -25,21 +25,21 @@ public class User implements UserDetails {
 
     public User() {}
 
-    public User(Long id, String login, String password, Set<Role> roles) {
+    public User(Long id, String username, String password, Set<Role> roles) {
         this.id = id;
-        this.login = login;
+        this.username = username;
         this.password = password;
         this.roles = roles;
     }
 
-    public User(String login, String password, Set<Role> roles) {
-        this.login = login;
+    public User(String username, String password, Set<Role> roles) {
+        this.username = username;
         this.password = password;
         this.roles = roles;
     }
 
-    public User(String login, String password) {
-        this.login = login;
+    public User(String username, String password) {
+        this.username = username;
         this.password = password;
     }
 
@@ -51,12 +51,8 @@ public class User implements UserDetails {
         this.id = id;
     }
 
-    public String getLogin() {
-        return login;
-    }
-
-    public void setLogin(String login) {
-        this.login = login;
+    public void setUsername(String username) {
+        this.username = username;
     }
 
     @Override
@@ -70,7 +66,7 @@ public class User implements UserDetails {
 
     @Override
     public String getUsername() {
-        return login;
+        return username;
     }
 
     @Override

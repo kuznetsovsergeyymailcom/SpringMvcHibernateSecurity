@@ -29,6 +29,11 @@ public class MainController {
         this.roleService = roleService;
     }
 
+    @GetMapping("/login")
+    public String login(){
+        return "login";
+    }
+
     @RequestMapping(value = "/admin/show", method = {RequestMethod.GET, RequestMethod.POST})
     public String show(Model model, HttpServletResponse resp) throws IOException {
 

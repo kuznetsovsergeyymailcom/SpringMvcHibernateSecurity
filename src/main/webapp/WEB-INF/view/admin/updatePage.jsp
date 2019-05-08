@@ -25,7 +25,7 @@
         <tr>
             <input type="hidden" name="id" value="${editUser.id}">
             <td><input type="text" value="${editUser.id}" readonly></td>
-            <td><input type="text" value="${editUser.login}" name="login"></td>
+            <td><input type="text" value="${editUser.username}" name="username"></td>
             <td><input type="text" value="${editUser.password}" name="password"></td>
             <td><select name="roles" multiple="multiple">
                 <option value="user" selected>user</option>

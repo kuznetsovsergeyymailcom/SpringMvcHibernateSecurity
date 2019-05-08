@@ -32,7 +32,7 @@
     <c:forEach items="${users}" var="user">
         <tr>
             <td>${user.id}</td>
-            <td>${user.login}</td>
+            <td>${user.username}</td>
             <td>${user.password}</td>
             <td>${user.roles}</td>
             <td align="center"><a href="/admin/update?id=${user.id}">Update</a></td>

@@ -9,7 +9,7 @@
     <script type="text/javascript">
         function validateForm() {
             var a = document.forms["addUser"]["name"].value;
-            var c = document.forms["addUser"]["login"].value;
+            var c = document.forms["addUser"]["username"].value;
             var b = document.forms["addUser"]["password"].value;
             if (a == null || a == "", b == null || b == "", c == null || c == "") {
                 alert("Please Fill All Required Field");
@@ -36,7 +36,7 @@
         </tr>
         </thead>
         <tr>
-            <td><input type="text" name="login"></td>
+            <td><input type="text" name="username"></td>
             <td><input type="text" name="password"></td>
             <td><select name="roles" multiple="multiple">
                 <option value="user" selected>user</option>
