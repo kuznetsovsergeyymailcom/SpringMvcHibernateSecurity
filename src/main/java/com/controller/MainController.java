@@ -6,6 +6,7 @@ import com.model.User;
 import com.service.RoleService;
 import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -29,8 +30,24 @@ public class MainController {
         this.roleService = roleService;
     }
 
+    @GetMapping
+    public String main(@AuthenticationPrincipal User user) {
+        String redirectUrl = "redirect:";
+        if (user != null) {
+            if(user.getRoles().contains(new Role("ADMIN"))){
+                redirectUrl += "/admin/show";
+            }else{
+                redirectUrl += "/user";
+            }
+        } else{
+            redirectUrl+="/login";
+        }
+
+        return redirectUrl;
+    }
+
     @GetMapping("/login")
-    public String login(){
+    public String login() {
         return "login";
     }
 
@@ -111,7 +128,7 @@ public class MainController {
     }
 
     @GetMapping("/error")
-    public String error(){
+    public String error() {
         return "error";
     }
 
