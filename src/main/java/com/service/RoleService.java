@@ -1,8 +1,9 @@
-package com.dao;
+package com.service;
 
 import com.model.Role;
 
-public interface RoleDao {
+public interface RoleService {
+
     Role getRoleByName(String name);
     void addRole(Role role);
 }

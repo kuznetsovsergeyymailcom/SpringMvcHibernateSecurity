@@ -1,6 +1,10 @@
 package com.config.spring;
 
+import com.config.initdatabase.DatabaseInitializer;
 import com.container.UserContainer;
+import com.service.RoleService;
+import com.service.UserService;
+import org.hibernate.dialect.Database;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
@@ -29,6 +33,11 @@ public class MVCConfigurer implements WebMvcConfigurer {
     @Bean(initMethod = "init")
     public UserContainer initUserStorage(){
         return new UserContainer();
+    }
+
+    @Bean(initMethod = "init")
+    public DatabaseInitializer initDatabaseStorage(UserService userService, RoleService roleService){
+        return new DatabaseInitializer(userService, roleService);
     }
 
 }

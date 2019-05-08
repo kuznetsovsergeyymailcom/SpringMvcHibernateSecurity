@@ -1,6 +1,7 @@
 package com.controller;
 
 import com.dao.UserDao;
+import com.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -13,11 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class MainController {
 
     @Autowired
-    private UserDao userDao;
+    private UserService userService;
 
     @GetMapping("/show")
     public String show(Model model){
-        model.addAttribute("users", userDao.getAllUsers());
+        model.addAttribute("users", userService.getAllUsers());
         return "admin/adminPage";
     }
 
