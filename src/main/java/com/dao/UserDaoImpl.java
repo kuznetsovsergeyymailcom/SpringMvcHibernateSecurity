@@ -42,7 +42,12 @@ public class UserDaoImpl implements UserDao {
 
     @Override
     public void update(User user) {
-        entityManager.merge(user);
+        try{
+            entityManager.merge(user);
+
+        }catch(Exception e){
+            System.out.println(e.getMessage());
+        }
     }
 
     @Override
